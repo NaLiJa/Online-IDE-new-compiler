@@ -7,6 +7,7 @@ import { ObjectClass } from "../../system/javalang/ObjectClassStringClass";
 import { Mesh3dClass } from "./Mesh3dClass";
 import { BatchedObject3dClass } from './BatchedObject3dClass';
 import { Object3dClass } from './Object3dClass';
+import { Material3dClass } from './materials/Material3dClass';
 
 export class Object3dBatchClass extends ObjectClass {
 
@@ -21,14 +22,17 @@ export class Object3dBatchClass extends ObjectClass {
         batchedMesh: THREE.BatchedMesh;
         geometryID: number;
         template: Mesh3dClass;
+        material: Material3dClass;
 
         _cj$_constructor_$Object3dBatch$Mesh3d$int(t: Thread, callback: CallbackParameter, template: Mesh3dClass, maxInstanceCount: number) {
             t.s.push(this);
 
             this.template = template;
             let maxVertexCount: number = template._geometry.attributes.position.count;
+            this.material = template.material
             this.batchedMesh = new THREE.BatchedMesh(maxInstanceCount, maxVertexCount, maxVertexCount * 2,
-                template.material.getMaterialAndIncreaseUsageCounter());
+                this.material.getMaterialAndIncreaseUsageCounter());
+            this.batchedMesh.sortObjects = true;
             this.geometryID = this.batchedMesh.addGeometry(template._geometry.clone());
 
             this.template.world3d.scene.add(this.batchedMesh);
@@ -36,9 +40,22 @@ export class Object3dBatchClass extends ObjectClass {
             if(callback) callback();
         }   
 
+        setColorableMaterial(){
+            if(this.material){
+                this.material.destroyIfNotUsedByOtherMesh();
+                this.material = null;
+                this.batchedMesh.material = new THREE.MeshBasicMaterial({
+                    transparent: true,
+                    // opacity: 0.3,
+                    color: 0xffffff,
+                });
+                this.batchedMesh.material.needsUpdate = true;
+            }
+        }
+
         createInstance(): Object3dClass {
             let instanceID = this.batchedMesh.addInstance(this.geometryID);
-            let object = new BatchedObject3dClass(this.batchedMesh, instanceID, this.template.mesh.matrix.clone(), this.template.mesh.position.clone());
+            let object = new BatchedObject3dClass(this.batchedMesh, instanceID, this.template.mesh.matrix.clone(), this.template.mesh.position.clone(), this);
 
             return object;
         }

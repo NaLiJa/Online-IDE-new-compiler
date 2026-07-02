@@ -4,6 +4,7 @@ import { LibraryDeclarations } from "../../../module/libraries/DeclareType";
 import { Object3dClass } from "./Object3dClass";
 import { Matrix4Class } from './Matrix4Class';
 import { Vector3Class } from './Vector3Class';
+import { Object3dBatchClass } from './Object3dBatchClass';
 
 export class BatchedObject3dClass extends Object3dClass {
 
@@ -39,7 +40,9 @@ export class BatchedObject3dClass extends Object3dClass {
     ];
 
 
-    constructor(private batchedMesh: THREE.BatchedMesh, private instanceIndex: number, private matrix4: THREE.Matrix4, private position: THREE.Vector3) {
+    constructor(private batchedMesh: THREE.BatchedMesh, private instanceIndex: number, private matrix4: THREE.Matrix4, private position: THREE.Vector3, 
+        private batchObject3d: Object3dBatchClass
+    ) {
         super();
     }
 
@@ -112,6 +115,7 @@ export class BatchedObject3dClass extends Object3dClass {
     }
 
     setColor(color: number) {
+        this.batchObject3d.setColorableMaterial();
         this.batchedMesh.setColorAt(this.instanceIndex, new THREE.Color(color));
     }
 
