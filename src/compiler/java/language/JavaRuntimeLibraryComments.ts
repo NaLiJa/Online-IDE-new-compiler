@@ -6274,6 +6274,11 @@ rectMode(RADIUS) also uses the first two parameters as the x- and y-coordinates 
         "fr": `Crée une nouvelle instance d'un BatchedObject3d.`,
     });
 
+    static Object3dBatchSetOpacityComment = () => lm({
+        "de": `Setzt die Durchsichtigkeit (Alpha-Wert) aller Objekte in diesem Object3dBatch. Wert zwischen 0 und 1.`,
+        "en": `Sets the opacity (alpha value) of all objects in this Object3dBatch. Value between 0 and 1.`,
+        "fr": `Définit l'opacité (valeur alpha) de tous les objets de cet Object3dBatch. Valeur entre 0 et 1.`,
+    });
     
 }
 

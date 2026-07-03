@@ -11,58 +11,76 @@ import { Material3dClass } from './materials/Material3dClass';
 
 export class Object3dBatchClass extends ObjectClass {
 
-        static __javaDeclarations: LibraryDeclarations = [
-            { type: "declaration", signature: "class Object3dBatch extends Object", comment: JRC.Object3dBatchClassComment },
-            { type: "method", signature: "Object3dBatch(Mesh3d template, int maxInstanceCount)", java: Object3dBatchClass.prototype._cj$_constructor_$Object3dBatch$Mesh3d$int, comment: JRC.Object3dBatchConstructorComment },
-            { type: "method", signature: "BatchedObject3d createInstance()", native: Object3dBatchClass.prototype.createInstance, comment: JRC.Object3dBatchCreateInstanceComment },
-    
-            { type: "method", signature: "void destroy()", native: Object3dBatchClass.prototype.destroy },
-        ];
-    
-        batchedMesh: THREE.BatchedMesh;
-        geometryID: number;
-        template: Mesh3dClass;
-        material: Material3dClass;
+    static __javaDeclarations: LibraryDeclarations = [
+        { type: "declaration", signature: "class Object3dBatch extends Object", comment: JRC.Object3dBatchClassComment },
+        { type: "method", signature: "Object3dBatch(Mesh3d template, int maxInstanceCount)", java: Object3dBatchClass.prototype._cj$_constructor_$Object3dBatch$Mesh3d$int, comment: JRC.Object3dBatchConstructorComment },
+        { type: "method", signature: "BatchedObject3d createInstance()", native: Object3dBatchClass.prototype.createInstance, comment: JRC.Object3dBatchCreateInstanceComment },
+        { type: "method", signature: "void setOpacity(float opacity)", native: Object3dBatchClass.prototype.setOpacity, comment: JRC.Object3dBatchSetOpacityComment },
+        { type: "method", signature: "void destroy()", native: Object3dBatchClass.prototype.destroy },
+    ];
 
-        _cj$_constructor_$Object3dBatch$Mesh3d$int(t: Thread, callback: CallbackParameter, template: Mesh3dClass, maxInstanceCount: number) {
-            t.s.push(this);
+    batchedMesh: THREE.BatchedMesh;
+    geometryID: number;
+    template: Mesh3dClass;
+    material: Material3dClass;
+    opacity: number = 1.0;
 
-            this.template = template;
-            let maxVertexCount: number = template._geometry.attributes.position.count;
-            this.material = template.material
-            this.batchedMesh = new THREE.BatchedMesh(maxInstanceCount, maxVertexCount, maxVertexCount * 2,
-                this.material.getMaterialAndIncreaseUsageCounter());
-            this.batchedMesh.sortObjects = true;
-            this.geometryID = this.batchedMesh.addGeometry(template._geometry.clone());
+    _cj$_constructor_$Object3dBatch$Mesh3d$int(t: Thread, callback: CallbackParameter, template: Mesh3dClass, maxInstanceCount: number) {
+        t.s.push(this);
 
-            this.template.world3d.scene.add(this.batchedMesh);
+        this.template = template;
+        let maxVertexCount: number = template._geometry.attributes.position.count * maxInstanceCount;
+        this.material = template.material
+        this.batchedMesh = new THREE.BatchedMesh(maxInstanceCount, maxVertexCount, maxVertexCount * 2,
+            this.material.getMaterialAndIncreaseUsageCounter());
+        this.batchedMesh.sortObjects = true;
+        this.batchedMesh.frustumCulled = false;
 
-            if(callback) callback();
-        }   
+        this.template.mesh.updateMatrixWorld(true);
 
-        setColorableMaterial(){
-            if(this.material){
-                this.material.destroyIfNotUsedByOtherMesh();
-                this.material = null;
-                this.batchedMesh.material = new THREE.MeshBasicMaterial({
-                    transparent: true,
-                    // opacity: 0.3,
-                    color: 0xffffff,
-                });
-                this.batchedMesh.material.needsUpdate = true;
-            }
+        this.geometryID = this.batchedMesh.addGeometry(template._geometry.clone());
+
+        this.template.world3d.scene.add(this.batchedMesh);
+
+        if (callback) callback();
+    }
+
+    setColorableMaterial() {
+        if (this.material) {
+            this.material.destroyIfNotUsedByOtherMesh();
+            this.material = null;
+            this.batchedMesh.material = new THREE.MeshBasicMaterial({
+                transparent: true,
+                opacity: this.opacity,
+                color: 0xffffff,
+            });
+            this.batchedMesh.material.needsUpdate = true;
         }
+    }
 
-        createInstance(): Object3dClass {
-            let instanceID = this.batchedMesh.addInstance(this.geometryID);
-            let object = new BatchedObject3dClass(this.batchedMesh, instanceID, this.template.mesh.matrix.clone(), this.template.mesh.position.clone(), this);
-
-            return object;
+    setOpacity(opacity: number) {
+        this.opacity = opacity;
+        if (this.batchedMesh.material instanceof THREE.MeshBasicMaterial) {
+            this.batchedMesh.material.opacity = opacity;
+            this.batchedMesh.material.needsUpdate = true;
         }
+    }
 
-        destroy(){
-            this.batchedMesh.dispose();
-            this.template.material.destroyIfNotUsedByOtherMesh();
-        }
+    createInstance(): Object3dClass {
+        let instanceID = this.batchedMesh.addInstance(this.geometryID);
+        let matrix = this.template.mesh.matrix.clone();
+        this.batchedMesh.setMatrixAt(instanceID, matrix);
+
+
+        let object = new BatchedObject3dClass(this.batchedMesh, instanceID, matrix,
+            this.template.mesh.position.clone(), this);
+
+        return object;
+    }
+
+    destroy() {
+        this.batchedMesh.dispose();
+        this.template.material.destroyIfNotUsedByOtherMesh();
+    }
 
 } 
