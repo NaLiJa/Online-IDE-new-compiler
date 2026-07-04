@@ -18,9 +18,9 @@ export class Ring3dClass extends Mesh3dClass {
             thetaStart *= Math.PI/180;
             thetaLength *= Math.PI/180;
             super._cj$_constructor_$Mesh3d$(t, ()=>{
-            const geometry = new THREE.RingGeometry(innerRadius, outerRadius, thetaSegments, phiSegments, thetaStart, thetaLength);
+            this._geometry = new THREE.RingGeometry(innerRadius, outerRadius, thetaSegments, phiSegments, thetaStart, thetaLength);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
 
             if(callback)callback();
@@ -30,9 +30,9 @@ export class Ring3dClass extends Mesh3dClass {
 
     _cj$_constructor_$Ring3d$double$double$int$int(t: Thread, callback: CallbackParameter, innerRadius: number, outerRadius, thetaSegments: number, phiSegments: number) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
-            const geometry = new THREE.RingGeometry(innerRadius, outerRadius, thetaSegments, phiSegments);
+            this._geometry = new THREE.RingGeometry(innerRadius, outerRadius, thetaSegments, phiSegments);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
 
             if(callback)callback();
@@ -42,9 +42,9 @@ export class Ring3dClass extends Mesh3dClass {
 
     _cj$_constructor_$Ring3d$double$double(t: Thread, callback: CallbackParameter, innerRadius: number, outerRadius) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
-            const geometry = new THREE.RingGeometry(innerRadius, outerRadius);
+            this._geometry = new THREE.RingGeometry(innerRadius, outerRadius);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
 
             if(callback)callback();
@@ -54,9 +54,9 @@ export class Ring3dClass extends Mesh3dClass {
 
     _cj$_constructor_$Ring3d$(t: Thread, callback: CallbackParameter) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
-            const geometry = new THREE.RingGeometry(1, 2);
+            this._geometry = new THREE.RingGeometry(1, 2);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
             if(callback)callback();
         });

@@ -21,9 +21,9 @@ export class Cone3dClass extends Mesh3dClass {
             thetaLength *= Math.PI/180;
     
             super._cj$_constructor_$Mesh3d$(t, ()=>{
-                const geometry = new THREE.ConeGeometry(radius, h, radialSegments, heightSegments, openEnded, thetaStart, thetaLength);
+                this._geometry = new THREE.ConeGeometry(radius, h, radialSegments, heightSegments, openEnded, thetaStart, thetaLength);
     
-                this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+                this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
                 this.world3d.scene.add(this.mesh);
                 if(callback)callback();
             });
@@ -34,9 +34,9 @@ export class Cone3dClass extends Mesh3dClass {
             radius: number, h: number,
         radialSegments: number, heightSegments: number, openEnded: boolean) {
             super._cj$_constructor_$Mesh3d$(t, ()=>{
-                const geometry = new THREE.ConeGeometry(radius, h, radialSegments, heightSegments, openEnded);
+                this._geometry = new THREE.ConeGeometry(radius, h, radialSegments, heightSegments, openEnded);
     
-                this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+                this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
                 this.world3d.scene.add(this.mesh);
                 if(callback)callback();
             });
@@ -45,9 +45,9 @@ export class Cone3dClass extends Mesh3dClass {
     
         _cj$_constructor_$Cone3d$double$double(t: Thread, callback: CallbackParameter, radius:number, h: number) {
             super._cj$_constructor_$Mesh3d$(t, ()=>{
-                const geometry = new THREE.ConeGeometry(radius, h);
+                this._geometry = new THREE.ConeGeometry(radius, h);
     
-                this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+                this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
                 this.world3d.scene.add(this.mesh);
                 if(callback)callback();
             });
@@ -58,9 +58,9 @@ export class Cone3dClass extends Mesh3dClass {
 
     _cj$_constructor_$Cone3d$(t: Thread, callback: CallbackParameter) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
-            const geometry = new THREE.ConeGeometry(0.5, 1);
+            this._geometry = new THREE.ConeGeometry(0.5, 1);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
             if(callback)callback();
         });

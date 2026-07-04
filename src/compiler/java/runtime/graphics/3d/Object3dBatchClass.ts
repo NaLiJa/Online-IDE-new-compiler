@@ -8,14 +8,34 @@ import { Mesh3dClass } from "./Mesh3dClass";
 import { BatchedObject3dClass } from './BatchedObject3dClass';
 import { Object3dClass } from './Object3dClass';
 import { Material3dClass } from './materials/Material3dClass';
+import type { Matrix4Class } from './Matrix4Class';
+import type { Vector3Class } from './Vector3Class';
 
-export class Object3dBatchClass extends ObjectClass {
+export class Object3dBatchClass extends Object3dClass {
 
     static __javaDeclarations: LibraryDeclarations = [
-        { type: "declaration", signature: "class Object3dBatch extends Object", comment: JRC.Object3dBatchClassComment },
+        { type: "declaration", signature: "class Object3dBatch extends Object3d", comment: JRC.Object3dBatchClassComment },
         { type: "method", signature: "Object3dBatch(Mesh3d template, int maxInstanceCount)", java: Object3dBatchClass.prototype._cj$_constructor_$Object3dBatch$Mesh3d$int, comment: JRC.Object3dBatchConstructorComment },
         { type: "method", signature: "BatchedObject3d createInstance()", native: Object3dBatchClass.prototype.createInstance, comment: JRC.Object3dBatchCreateInstanceComment },
         { type: "method", signature: "void setOpacity(float opacity)", native: Object3dBatchClass.prototype.setOpacity, comment: JRC.Object3dBatchSetOpacityComment },
+
+        { type: "method", signature: "void move(double x,double y,double z)", native: Object3dBatchClass.prototype.move },
+        { type: "method", signature: "final void move(Vector3 v)", native: Object3dBatchClass.prototype.vmove },
+        { type: "method", signature: "void moveTo(double x,double y,double z)", native: Object3dBatchClass.prototype.moveTo },
+        { type: "method", signature: "final void moveTo(Vector3 p)", native: Object3dBatchClass.prototype.vmoveTo },
+
+        { type: "method", signature: "void rotateX(double angleDeg)", native: Object3dBatchClass.prototype.rotateX },
+        { type: "method", signature: "void rotateY(double angleDeg)", native: Object3dBatchClass.prototype.rotateY },
+        { type: "method", signature: "void rotateZ(double angleDeg)", native: Object3dBatchClass.prototype.rotateZ },
+
+        { type: "method", signature: "final void scaleX(double scale)", native: Object3dBatchClass.prototype.scaleX },
+        { type: "method", signature: "final void scaleY(double scale)", native: Object3dBatchClass.prototype.scaleY },
+        { type: "method", signature: "final void scaleZ(double scale)", native: Object3dBatchClass.prototype.scaleZ },
+        { type: "method", signature: "final void scale(Vector3 v)", native: Object3dBatchClass.prototype.vscale },
+        { type: "method", signature: "final void scale(double d)", native: Object3dBatchClass.prototype.scaleDouble },
+
+        { type: "method", signature: "final void applyMatrix4(Matrix4 matrix)", native: Object3dBatchClass.prototype.applyMatrix4 },
+
         { type: "method", signature: "void destroy()", native: Object3dBatchClass.prototype.destroy },
     ];
 
@@ -83,4 +103,48 @@ export class Object3dBatchClass extends ObjectClass {
         this.template.material.destroyIfNotUsedByOtherMesh();
     }
 
+        move(x: number, y: number, z: number): void {
+            this.batchedMesh.position.add(new THREE.Vector3(x, y, z));
+        }
+    
+        moveTo(x: number, y: number, z: number): void {
+            this.batchedMesh.position.set(x, y, z);
+        }
+    
+        rotateX(angleDeg: number): void {
+            this.batchedMesh.rotateX(angleDeg / 180 * Math.PI);
+        }
+        rotateY(angleDeg: number): void {
+            this.batchedMesh.rotateY(angleDeg / 180 * Math.PI);
+        }
+        rotateZ(angleDeg: number): void {
+            this.batchedMesh.rotateZ(angleDeg / 180 * Math.PI);
+        }
+    
+    
+        scaleX(factor: number): void {
+            this.batchedMesh.scale.x *= factor;
+        }
+    
+        scaleY(factor: number): void {
+            this.batchedMesh.scale.y *= factor;
+        }
+    
+        scaleZ(factor: number): void {
+            this.batchedMesh.scale.z *= factor;
+        }
+    
+    
+        applyMatrix4(matrix4: Matrix4Class) {
+            this.batchedMesh.applyMatrix4(matrix4.m);
+        }
+    
+        vscale(factor: Vector3Class) {
+            this.batchedMesh.scale.copy(factor.v);
+        }
+    
+        scaleDouble(factor: number) {
+            this.batchedMesh.scale.multiplyScalar(factor);
+        }
+    
 } 

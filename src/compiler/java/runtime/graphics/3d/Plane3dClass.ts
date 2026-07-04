@@ -14,9 +14,9 @@ export class Plane3dClass extends Mesh3dClass {
 
     _cj$_constructor_$Plane3d$double$double$int$int(t: Thread, callback: CallbackParameter, width: number, height: number, widthSegments: number, heightSegments: number) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
-            const geometry = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
+            this._geometry = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
 
             if(callback)callback();
@@ -26,9 +26,9 @@ export class Plane3dClass extends Mesh3dClass {
 
     _cj$_constructor_$Plane3d$double$double(t: Thread, callback: CallbackParameter, width: number, height: number) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
-            const geometry = new THREE.PlaneGeometry(width, height);
+            this._geometry = new THREE.PlaneGeometry(width, height);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
 
             if(callback)callback();
@@ -38,9 +38,9 @@ export class Plane3dClass extends Mesh3dClass {
 
     _cj$_constructor_$Plane3d$(t: Thread, callback: CallbackParameter) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
-            const geometry = new THREE.PlaneGeometry(1, 1);
+            this._geometry = new THREE.PlaneGeometry(1, 1);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
             if(callback)callback();
         });

@@ -18,9 +18,9 @@ export class Circle3dClass extends Mesh3dClass {
             thetaStart *= Math.PI/180;
             thetaLength *= Math.PI/180;
             super._cj$_constructor_$Mesh3d$(t, ()=>{
-            const geometry = new THREE.CircleGeometry(radius, segments, thetaStart, thetaLength);
+            this._geometry = new THREE.CircleGeometry(radius, segments, thetaStart, thetaLength);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
 
             if(callback)callback();
@@ -30,9 +30,9 @@ export class Circle3dClass extends Mesh3dClass {
 
     _cj$_constructor_$Circle3d$double$int(t: Thread, callback: CallbackParameter, radius: number, segments: number) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
-            const geometry = new THREE.CircleGeometry(radius, segments);
+            this._geometry = new THREE.CircleGeometry(radius, segments);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
 
             if(callback)callback();
@@ -42,9 +42,9 @@ export class Circle3dClass extends Mesh3dClass {
 
     _cj$_constructor_$Circle3d$double(t: Thread, callback: CallbackParameter, radius: number) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
-            const geometry = new THREE.CircleGeometry(radius);
+            this._geometry = new THREE.CircleGeometry(radius);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
 
             if(callback)callback();
@@ -54,9 +54,9 @@ export class Circle3dClass extends Mesh3dClass {
 
     _cj$_constructor_$Circle3d$(t: Thread, callback: CallbackParameter) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
-            const geometry = new THREE.CircleGeometry(0.5);
+            this._geometry = new THREE.CircleGeometry(0.5);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
             if(callback)callback();
         });

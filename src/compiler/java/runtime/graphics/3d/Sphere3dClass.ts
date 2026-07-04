@@ -19,9 +19,9 @@ export class Sphere3dClass extends Mesh3dClass {
     _cj$_constructor_$Sphere3d$(t: Thread, callback: CallbackParameter) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
 
-            const geometry = new THREE.SphereGeometry(0.5);
+            this._geometry = new THREE.SphereGeometry(0.5);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
             if(callback)callback();
         });
@@ -30,9 +30,9 @@ export class Sphere3dClass extends Mesh3dClass {
     _cj$_constructor_$Sphere3d$double(t: Thread, callback: CallbackParameter, radius: number) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
 
-            const geometry = new THREE.SphereGeometry(radius);
+            this._geometry = new THREE.SphereGeometry(radius);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
             if(callback)callback();
         });
@@ -42,9 +42,9 @@ export class Sphere3dClass extends Mesh3dClass {
         widthSegments: number, heightSegments: number) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
 
-            const geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments);
+            this._geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
             if(callback)callback();
         });

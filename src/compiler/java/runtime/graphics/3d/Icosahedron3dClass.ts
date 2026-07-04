@@ -17,9 +17,9 @@ export class Icosahedron3dClass extends Mesh3dClass {
     _cj$_constructor_$Icosahedron3d$(t: Thread, callback: CallbackParameter) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
 
-            const geometry = new THREE.IcosahedronGeometry(0.5);
+            this._geometry = new THREE.IcosahedronGeometry(0.5);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
             if(callback)callback();
         });
@@ -28,9 +28,9 @@ export class Icosahedron3dClass extends Mesh3dClass {
     _cj$_constructor_$Icosahedron3d$double(t: Thread, callback: CallbackParameter, radius: number) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
 
-            const geometry = new THREE.IcosahedronGeometry(radius);
+            this._geometry = new THREE.IcosahedronGeometry(radius);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
             if(callback)callback();
         });
@@ -39,9 +39,9 @@ export class Icosahedron3dClass extends Mesh3dClass {
     _cj$_constructor_$Icosahedron3d$double$int(t: Thread, callback: CallbackParameter, radius: number, detail: number) {
         super._cj$_constructor_$Mesh3d$(t, ()=>{
 
-            const geometry = new THREE.IcosahedronGeometry(radius, detail);
+            this._geometry = new THREE.IcosahedronGeometry(radius, detail);
 
-            this.mesh = new THREE.Mesh(geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
+            this.mesh = new THREE.Mesh(this._geometry, this.getInitialMaterial().getMaterialAndIncreaseUsageCounter());
             this.world3d.scene.add(this.mesh);
             if(callback)callback();
         });
