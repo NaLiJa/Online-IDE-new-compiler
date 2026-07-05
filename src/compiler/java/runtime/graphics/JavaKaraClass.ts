@@ -131,7 +131,7 @@ export class JavaKaraWorldClass extends FilledShapeClass {
 
     withDirection(direction: number, delta: DirectionDelta, x: number, y: number): {x: number, y: number}{
         if(delta == DirectionDelta.none) return {x: x, y: y};
-        let dirNew = KaraSprite.directions[(direction + delta) % KaraSprite.directions.length];
+        let dirNew = KaraSprite.directions[(direction + delta + KaraSprite.directions.length) % KaraSprite.directions.length];
         x += dirNew.dx;
         y += dirNew.dy;
         return {x: x, y: y};
