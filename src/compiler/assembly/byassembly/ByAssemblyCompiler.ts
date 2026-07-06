@@ -152,9 +152,9 @@ export class ByAssemblyCompiler implements Compiler {
         this.compileIfDirty();
     }
 
-    interruptAndStartOverAgain(onlyForCodeCompletion: boolean): Promise<void> {
-        return new Promise<void>(resolve => resolve());
-    }
+    // interruptAndStartOverAgain(onlyForCodeCompletion: boolean): Promise<void> {
+    //     return new Promise<void>(resolve => resolve());
+    // }
 
     waitTillCompilationFinished(): Promise<void> {
         return new Promise<void>(resolve => resolve());

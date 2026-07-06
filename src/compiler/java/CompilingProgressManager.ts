@@ -9,7 +9,7 @@ export class CompilingProgressManager {
     #timeStarted: number = 0;
     #lastInterruptionTime: number = 0;
     #numberOfInterruptions: number = 0;
-    #interruptAndRestartFlag: boolean = false;
+    // #interruptAndRestartFlag: boolean = false;
     #newOrDirtyModules: string = "";
     #isInsideCompilationRun: boolean = false;
 
@@ -25,7 +25,7 @@ export class CompilingProgressManager {
 
     initBeforeCompiling() {
         this.#timeStarted = this.#lastInterruptionTime = performance.now();
-        this.#interruptAndRestartFlag = false;
+        // this.#interruptAndRestartFlag = false;
         this.#numberOfInterruptions = 0;
         if (this.#nextRunWithoutInterruptions) this.#lastInterruptionTime += 1e6;
         this.#nextRunWithoutInterruptions = false;
@@ -52,7 +52,7 @@ export class CompilingProgressManager {
             this.#numberOfInterruptions++;
             await this.#delay(this.#interruptForMs);
             this.#lastInterruptionTime = performance.now();
-            if (this.#interruptAndRestartFlag) throw new CompilingProgressManagerException();
+            // if (this.#interruptAndRestartFlag) throw new CompilingProgressManagerException();
         }
     }
 
@@ -60,15 +60,15 @@ export class CompilingProgressManager {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    interruptCompilerIfRunning(nextRunWithoutInterruptions: boolean) {
-        if (this.#doLogging) console.log("Request to interrupt compiler by JavaCompletionItemProvider");
-        this.#interruptAndRestartFlag = true;
-        this.#nextRunWithoutInterruptions = nextRunWithoutInterruptions;
-    }
+    // interruptCompilerIfRunning(nextRunWithoutInterruptions: boolean) {
+    //     if (this.#doLogging) console.log("Request to interrupt compiler by JavaCompletionItemProvider");
+    //     this.#interruptAndRestartFlag = true;
+    //     this.#nextRunWithoutInterruptions = nextRunWithoutInterruptions;
+    // }
 
-    restartNecessary() {
-        return this.#interruptAndRestartFlag;
-    }
+    // restartNecessary() {
+    //     return this.#interruptAndRestartFlag;
+    // }
 
     setNewOrDirtyModules(newOrDirtyModules: string) {
         this.#newOrDirtyModules = newOrDirtyModules;

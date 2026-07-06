@@ -50,7 +50,8 @@ export class JavaCompletionItemProvider extends BaseMonacoProvider implements mo
         } else {
             module = <JavaCompiledModule>main.getCurrentWorkspace()?.getModuleForMonacoModel(model);
             if (module?.isMoreThanOneVersionAheadOfLastCompilation()) {
-                await main.getCompiler().interruptAndStartOverAgain(true);
+                // await main.getCompiler().interruptAndStartOverAgain(true);
+                await main.getCompiler().waitTillCompilationFinished();
                 module = <JavaCompiledModule>main.getCurrentWorkspace()?.getModuleForMonacoModel(model);
             }
         }

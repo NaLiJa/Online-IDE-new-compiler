@@ -20,7 +20,7 @@ export interface Compiler {
     getType(identifier: string): BaseType | undefined;
     triggerCompile(): void;
     forceRecompilation(): void;
-    interruptAndStartOverAgain(onlyForCodeCompletion: boolean): Promise<void>;
+    // interruptAndStartOverAgain(onlyForCodeCompletion: boolean): Promise<void>;
 
     waitTillCompilationFinished(): Promise<void>;
 

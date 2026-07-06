@@ -55,6 +55,9 @@ export class JavaCompiler implements Compiler {
     #compileTimer: number;
     lastTimeCompilationStarted: number = 0;
 
+    #compilationInProgress: boolean = false;
+    #compilationSkippedCounter: number = 0;
+
     constructor(public main?: IMain, private errorMarker?: ErrorMarker) {
         this.libraryModuleManager = new JavaLibraryModuleManager();
         this.moduleManager = new JavaModuleManager();
@@ -244,6 +247,14 @@ export class JavaCompiler implements Compiler {
      * Cancels a previously scheduled compilation.
      */
     triggerCompile() {
+        if(this.#compilationInProgress && this.#compilationSkippedCounter < 3) {
+            // console.log("Compilation is already in progress. Skipping triggerCompile() call.");
+            this.#compilationSkippedCounter++;
+            return;
+        }
+
+        this.#compilationSkippedCounter = 0;
+
         if (this.#compileTimer) {
             clearTimeout(this.#compileTimer)
         }
@@ -255,7 +266,8 @@ export class JavaCompiler implements Compiler {
 
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         this.#compileTimer = window.setTimeout(async () => {
-            do {
+            this.#compilationInProgress = true;
+            // do {
                 try {
                     this.lastTimeCompilationStarted = performance.now();
                     this.#progressManager.initBeforeCompiling();
@@ -265,11 +277,16 @@ export class JavaCompiler implements Compiler {
                 } catch (exception) {
                     console.log(exception);
                     this.#progressManager.afterCompiling(exception.toString());
-                    if (!(exception instanceof CompilingProgressManagerException)) {
-                        break;   // if this.progressManager.restartNecessary then we would get an infinite loop if we wouldn't break
-                    }
+                    // if (!(exception instanceof CompilingProgressManagerException)) {
+                    //     break;   // if this.progressManager.restartNecessary then we would get an infinite loop if we wouldn't break
+                    // }
                 }
-            } while (this.#progressManager.restartNecessary())
+            // } while (this.#progressManager.restartNecessary())
+            this.#compilationInProgress = false;
+            if(this.#compilationSkippedCounter > 0) {
+                // console.log("There were " + this.#compilationSkippedCounter + " skipped compilation runs. Triggering compilation now.");
+                this.triggerCompile();
+            }
         }, timeout)
     }
 
@@ -298,19 +315,19 @@ export class JavaCompiler implements Compiler {
         return module.getSortedAndFilteredErrors();
     }
     
-    async interruptAndStartOverAgain(onlyForCodeCompletion: boolean): Promise<void> {
-        if (this.#progressManager.isInsideCompilationRun) {
-            this.#progressManager.interruptCompilerIfRunning(false);
-        }
-        this.#progressManager.initBeforeCompiling();
-        try {
-            await this.compileIfDirty(onlyForCodeCompletion);
-        } catch (ex) {
+    // async interruptAndStartOverAgain(onlyForCodeCompletion: boolean): Promise<void> {
+    //     if (this.#progressManager.isInsideCompilationRun) {
+    //         this.#progressManager.interruptCompilerIfRunning(false);
+    //     }
+    //     this.#progressManager.initBeforeCompiling();
+    //     try {
+    //         await this.compileIfDirty(onlyForCodeCompletion);
+    //     } catch (ex) {
 
-        }
-        this.#progressManager.afterCompiling();
+    //     }
+    //     this.#progressManager.afterCompiling();
 
-    }
+    // }
 
     async waitTillCompilationFinished(): Promise<void> {
         return new Promise((resolve) => {
