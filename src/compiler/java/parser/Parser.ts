@@ -257,6 +257,7 @@ export class Parser extends StatementParser {
                         documentation = undefined;
                         break;
                     case TokenType.keywordStatic:
+                        this.nextToken(); // skip "static"
                         this.parseStaticInitializer(classASTNode);
                         documentation = undefined;
                         break;
@@ -460,7 +461,11 @@ export class Parser extends StatementParser {
                     astNodeWithModifiers.visibility = this.tt;
                     break;
                 case TokenType.keywordStatic:
-                    astNodeWithModifiers.isStatic = true;
+                    if(this.lookahead(1).tt == TokenType.leftCurlyBracket){
+                        foundModifier = false; // static initializer block
+                    } else {
+                        astNodeWithModifiers.isStatic = true;
+                    }
                     break;
                 case TokenType.keywordFinal:
                     astNodeWithModifiers.isFinal = true;
