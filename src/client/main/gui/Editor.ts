@@ -45,6 +45,8 @@ export class Editor {
         }
     }
 
+
+    #lastLine: number = -1;
     initGUI($element: JQuery<HTMLElement>) {
 
         let settings = this.main.getSettings();
@@ -221,8 +223,10 @@ export class Editor {
 
             that.onEvaluateSelectedText(event);
 
-            that.onShowSignatureHelp(event);
-
+            if(event.position.lineNumber == this.#lastLine){
+                that.onShowSignatureHelp(event);
+            }
+            this.#lastLine = event.position.lineNumber;
         });
 
 
