@@ -18,6 +18,7 @@ export class ArrayListClass extends SystemCollection implements BaseListType {
         { type: "declaration", signature: "class ArrayList<E> implements List<E>", comment: JRC.arrayListClassComment },
 
         { type: "method", signature: "ArrayList()", native: ArrayListClass.prototype._constructor, comment: JRC.arrayListConstructorComment },
+        { type: "method", signature: "ArrayList(Collection<? extends E> c)", java: ArrayListClass.prototype._constructor1, comment: JRC.arrayListConstructorComment1 },
 
         // from IterableInterface
         { type: "method", signature: "Iterator<E> iterator()", native: ArrayListClass.prototype._iterator, comment: JRC.arrayListIteratorComment },
@@ -164,6 +165,28 @@ export class ArrayListClass extends SystemCollection implements BaseListType {
         }
 
         return this.elements[index];
+    }
+
+    _constructor1(t: Thread, callback: CallbackFunction, collection: CollectionInterface) {
+        if (collection == null) {
+            throw new NullPointerExceptionClass(JRC.arrayListConstructorNullPointerException());
+        }
+
+        if (collection instanceof SystemCollection) {
+            this.elements = this.elements.concat(collection.getElements());
+            t.s.push(this);
+            if (callback) callback();
+            return;
+        }
+
+        collection._mj$toArray$Object_I$(t, () => {
+            let newElements = t.s.pop();
+            if (newElements != null && Array.isArray(newElements)) {
+                this.elements = this.elements.concat(newElements);
+                t.s.push(this);
+                if (callback) callback();
+            }
+        })
     }
 
     _addAll(t: Thread, callback: CallbackFunction, collection: CollectionInterface) {

@@ -2032,6 +2032,11 @@ export class JRC {
         "en": "addAll had been called with null as argument.",
     })
 
+    static arrayListConstructorNullPointerException = () => lm({
+        "de": "Der Konstruktor wurde mit null als Argument aufgerufen.",
+        "en": "The constructor had been called with null as argument.",
+    })
+
     static collectionContainsAllNullPointerException = () => lm({
         "de": "containsAll wurde mit null als Argument aufgerufen.",
         "en": "containsAll had been called with null as argument.",
@@ -2092,6 +2097,11 @@ export class JRC {
     static arrayListConstructorComment = () => lm({
         "de": "Instanziiert (d.h. erzeugt) eine neue, leere Liste.",
         "en": "Constructs an empty list.",
+    })
+
+    static arrayListConstructorComment1 = () => lm({
+        "de": "Instanziiert (d.h. erzeugt) eine neue Liste und fügt alle Elemente der übergebenen Collection hinzu.",
+        "en": "Constructs a new list and adds all elements from the specified collection.",
     })
 
     static arrayListIteratorComment = () => lm({
