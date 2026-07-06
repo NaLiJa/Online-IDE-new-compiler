@@ -168,6 +168,7 @@ import { BaseWorldClass } from "../graphics/BaseWorldClass.ts";
 import { Line3Class } from "../graphics/3d/Line3Class.ts";
 import { Object3dBatchClass } from "../graphics/3d/Object3dBatchClass.ts";
 import { BatchedObject3dClass } from "../graphics/3d/BatchedObject3dClass.ts";
+import { ArraysClass } from "./collections/ArraysClass.ts";
 
 export class SystemModule extends JavaLibraryModule {
 
@@ -222,6 +223,7 @@ export class SystemModule extends JavaLibraryModule {
             SetInterface, MapInterface, HashMapClass, HashSetClass,
             VectorClass, StackClass,
             StreamInterface, SystemStreamClass,
+            ArraysClass,
 
             // Thread
             RunnableInterface, ThreadClass, ThreadStateEnum, SemaphoreClass,

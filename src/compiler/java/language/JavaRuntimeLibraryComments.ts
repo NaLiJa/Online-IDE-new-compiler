@@ -6280,6 +6280,21 @@ rectMode(RADIUS) also uses the first two parameters as the x- and y-coordinates 
         "fr": `Définit l'opacité (valeur alpha) de tous les objets de cet Object3dBatch. Valeur entre 0 et 1.`,
     });
     
+    /**
+     * Arrays
+     */
+
+    static ArraysClassComment = () => lm({
+        "de": `Hilfsklasse für Arrays`,
+        "en": `Helper class for arrays`,
+        "fr": `Classe d'aide pour les tableaux`,
+    })
+
+    static ArraysClassAsListComment = () => lm({
+        "de": `Gibt das Array als Liste zurück.`,
+        "en": `Returns the array as a list.`,
+        "fr": `Renvoie le tableau sous forme de liste.`,
+    })
 }
 
 

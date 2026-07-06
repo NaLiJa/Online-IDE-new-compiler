@@ -13,6 +13,7 @@ import { JavaLibraryModule } from "../module/libraries/JavaLibraryModule.ts";
 import { ASTAnonymousClassNode, ASTBinaryNode, ASTBracketNode, ASTLambdaFunctionDeclarationNode, ASTNode, ASTTermNode, ASTUnaryPrefixNode, AssignmentOperator, BinaryOperator, ConstantType, LogicOperator } from "../parser/AST";
 import { PrimitiveStringClass } from "../runtime/system/javalang/PrimitiveStringClass";
 import { StringPrimitiveType } from "../runtime/system/primitiveTypes/StringPrimitiveType";
+import { GenericTypeParameter } from "../types/GenericTypeParameter.ts";
 import { JavaArrayType } from "../types/JavaArrayType";
 import { JavaClass } from "../types/JavaClass";
 import { JavaInterface } from "../types/JavaInterface";
@@ -714,6 +715,11 @@ export abstract class BinopCastCodeGenerator {
             return true;
         }
 
+        if(typeFrom.isPrimitive && typeTo instanceof GenericTypeParameter){
+            typeTo.catches.push(this.getBoxedType(typeFrom));
+            return true;
+        }
+
         if (!typeFromIndex || !typeToIndex) return false;
 
         if (typeFromIndex == typeToIndex) return true;
@@ -816,6 +822,14 @@ export abstract class BinopCastCodeGenerator {
             return SnippetFramer.frame(snippet, `new ${Helpers.classes}["${boxedIdentifier}"](§1)`, boxedType);
         }
 
+    }
+
+    getBoxedType(type: JavaType): NonPrimitiveType | undefined {
+        if (!type) return undefined;
+        let unboxedTypeIndex = primitiveTypeMap[type.identifier];
+        if (!unboxedTypeIndex) return undefined;
+
+        return <NonPrimitiveType> this.libraryTypestore.getType(boxedTypeIdentifiers[unboxedTypeIndex]);
     }
 
     convertCharToNumber(snippet: CodeSnippet): CodeSnippet {
