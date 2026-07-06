@@ -3894,6 +3894,16 @@ rectMode(RADIUS) also uses the first two parameters as the x- and y-coordinates 
         "en": "Subtracts given vector from this one and returns this one. This Method ALTERS this object!",
     })
 
+    static Vector2NormalizeComment = () => lm({
+        "de": "Normalisiert das Vector2-Objekt (d.h. es wird auf die Länge 1 gestreckt) und gibt es zurück (für Method-Chaining!). Diese Methode VERÄNDERT dieses Objekt!",
+        "en": "Normalizes this Vector2-object (that is: scales it to length 1) and returns it for method chaining. This Method ALTERS this object!",
+    })
+
+    static Vector2NormalizedComment = () => lm({
+        "de": "Gibt ein NEUES Vector2-Objekt zurück, das parallel zu diesem ist aber die Länge 1 besitzt.",
+        "en": "Returns a NEW Vector2-object parallel to this one but with length 1.",
+    })
+
     static Vector2ScalarProductComment = () => lm({
         "de": "Gibt das Skalarprodukt der beiden Vektoren zurück.",
         "en": "Returns scalar product of vectors.",

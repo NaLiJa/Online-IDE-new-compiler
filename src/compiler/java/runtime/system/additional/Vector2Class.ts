@@ -29,6 +29,10 @@ export class Vector2Class extends ObjectClass {
         { type: "method", signature: "final Vector2 minus(Vector2 otherVector)", native: Vector2Class.prototype._minus, comment: JRC.Vector2MinusComment },
         { type: "method", signature: "final Vector2 add(Vector2 otherVector)", native: Vector2Class.prototype._add, comment: JRC.Vector2AddComment },
         { type: "method", signature: "final Vector2 sub(Vector2 otherVector)", native: Vector2Class.prototype._sub, comment: JRC.Vector2SubComment },
+        { type: "method", signature: "final Vector2 normalized()", native: Vector2Class.prototype._normalized, comment: JRC.Vector2NormalizedComment },
+
+        { type: "method", signature: "final Vector2 normalize()", native: Vector2Class.prototype._normalize, comment: JRC.Vector2NormalizeComment },
+
         { type: "method", signature: "final double scalarProduct(Vector2 otherVector)", native: Vector2Class.prototype._scalarProduct, comment: JRC.Vector2ScalarProductComment },
         { type: "method", signature: "final double distanceTo(Vector2 otherVector)", native: Vector2Class.prototype._distanceTo, comment: JRC.Vector2DistanceToComment },
         { type: "method", signature: "final static double distance(double x1, double y1, double x2, double y2)", native: Vector2Class._distance, comment: JRC.Vector2DistanceComment },
@@ -158,6 +162,27 @@ export class Vector2Class extends ObjectClass {
     _scale(factor: number): Vector2Class {
         this.x *= factor;
         this.y *= factor;
+        return this;
+    }
+
+    _normalized(): Vector2Class {
+        let length2 = this.x * this.x + this.y * this.y;
+        if(length2 < 1e-14) return new Vector2Class(0, 0);
+
+        let length = Math.sqrt(length2);
+        return new Vector2Class(this.x / length, this.y / length);
+    }
+
+    _normalize(): Vector2Class {
+        let length2 = this.x * this.x + this.y * this.y;
+        if(length2 < 1e-14) {
+            this.x = 0;
+            this.y = 0;
+            return this;
+        }
+        let length = Math.sqrt(length2);
+        this.x /= length;
+        this.y /= length;
         return this;
     }
 
