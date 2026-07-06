@@ -849,7 +849,11 @@ export class ShapeClass extends ActorClass {
 
         let parentContainer = this.world.app.stage;
         let highestIndex = parentContainer.children.length - 1;
-        parentContainer.setChildIndex(this.container, highestIndex);
+        try {
+            parentContainer.setChildIndex(this.container, highestIndex);
+        } catch(e){
+            
+        }
         return this;
 
     }
