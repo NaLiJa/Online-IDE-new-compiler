@@ -35,6 +35,7 @@ export class BatchedObject3dClass extends Object3dClass {
 
 
         { type: "method", signature: "void destroy()", native: BatchedObject3dClass.prototype.destroy },
+        { type: "method", signature: "boolean isDestroyed()", native: BatchedObject3dClass.prototype._isDestroyed },
 
 
     ];
@@ -114,6 +115,10 @@ export class BatchedObject3dClass extends Object3dClass {
             //@ts-ignore
             this.batchedMesh.deleteInstance(this.instanceIndex);
         }
+    }
+
+    _isDestroyed(): boolean {
+        return this.isDestroyed;
     }
 
     setVisible(isVisible: boolean) {
