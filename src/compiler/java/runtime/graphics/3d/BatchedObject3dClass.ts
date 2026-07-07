@@ -39,6 +39,7 @@ export class BatchedObject3dClass extends Object3dClass {
 
     ];
 
+    isDestroyed: boolean = false;
 
     constructor(private batchedMesh: THREE.BatchedMesh, private instanceIndex: number, 
         private matrix4: THREE.Matrix4, private position: THREE.Vector3, 
@@ -108,8 +109,11 @@ export class BatchedObject3dClass extends Object3dClass {
     }
 
     destroy() {
-        //@ts-ignore
-        this.batchedMesh.deleteInstance(this.instanceIndex);
+        if(!this.isDestroyed) {
+            this.isDestroyed = true;
+            //@ts-ignore
+            this.batchedMesh.deleteInstance(this.instanceIndex);
+        }
     }
 
     setVisible(isVisible: boolean) {
