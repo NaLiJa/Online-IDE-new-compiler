@@ -49,7 +49,7 @@ export class Object3dBatchClass extends Object3dClass {
         t.s.push(this);
 
         this.template = template;
-        let maxVertexCount: number = template._geometry.attributes.position.count * maxInstanceCount;
+        let maxVertexCount: number = template._geometry.attributes.position.count * 8;
         this.material = template.material
         this.batchedMesh = new THREE.BatchedMesh(maxInstanceCount, maxVertexCount, maxVertexCount * 2,
             this.material.getMaterialAndIncreaseUsageCounter());
