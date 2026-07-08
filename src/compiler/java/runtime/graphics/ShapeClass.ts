@@ -14,6 +14,7 @@ import { FilledShapeDefaults } from './FilledShapeDefaults';
 import { GroupClass } from './GroupClass';
 import { updateWorldTransformRecursively } from './PixiHelper';
 import { IWorld } from './IWorld';
+import { ArrayListClass } from '../system/collections/ArrayListClass';
 
 export type MouseEventMethod = (t: Thread, callback: CallbackParameter, x: number, y: number, button: number) => void;
 
@@ -74,9 +75,9 @@ export class ShapeClass extends ActorClass {
         { type: "method", signature: "final boolean collidesWithFillColor(Color color)", native: ShapeClass.prototype._collidesWithAnyShape, comment: JRC.shapeCollidesWithFillColorComment },
         { type: "method", signature: "final Sprite getFirstCollidingSprite(int imageIndex)", native: ShapeClass.prototype._getFirstCollidingSprite, comment: JRC.shapeGetFirstCollidingSpriteComment },
         { type: "method", signature: "final Shape getFirstCollidingShape()", native: ShapeClass.prototype._getFirstCollidingShape, comment: JRC.shapeGetFirstCollidingShapeComment },
-        { type: "method", signature: "final <T extends Shape> T[] getCollidingShapes(Group<T> group)", native: ShapeClass.prototype._getCollidingShapes, comment: JRC.shapeGetCollidingShapesComment },
+        { type: "method", signature: "final <T extends Shape> T[] getCollidingShapes(Group<T> group)", native: ShapeClass.prototype._getCollidingShapesGroup, comment: JRC.shapeGetCollidingShapesGroupComment },
+        { type: "method", signature: "final <T extends Shape> T[] getCollidingShapes(ArrayList<T> listOfShapes)", native: ShapeClass.prototype._getCollidingShapesArrayList, comment: JRC.shapeGetCollidingShapesArrayListComment },
         { type: "method", signature: "final void reactToMouseEventsWhenInvisible(boolean b)", native: ShapeClass.prototype._reactToMouseEventsWhenInvisible, comment: JRC.shapeReactToMouseEventsWhenInvisibleComment },
-
 
         { type: "method", signature: "void onMouseUp(double x, double y, int button)", java: ShapeClass.prototype._mj$onMouseUp$void$double$double$int, comment: JRC.shapeOnMouseUpComment },
         { type: "method", signature: "void onMouseDown(double x, double y, int button)", java: ShapeClass.prototype._mj$onMouseDown$void$double$double$int, comment: JRC.shapeOnMouseDownComment },
@@ -695,7 +696,17 @@ export class ShapeClass extends ActorClass {
         return this.getFirstCollidingSpriteHelper(imageIndex, this.world.shapesWhichBelongToNoGroup, this.container.getBounds());
     }
 
-    _getCollidingShapes(group: GroupClass): ShapeClass[] | null {
+    _getCollidingShapesArrayList(list: ArrayListClass): ShapeClass[] | null {
+        if (list == null) return [];
+
+        let ret: ShapeClass[] = [];
+        for (let shape of list.getElements()) {
+            if (this._collidesWith(shape)) ret.push(shape);
+        }
+        return ret;
+    }
+
+    _getCollidingShapesGroup(group: GroupClass): ShapeClass[] | null {
         if (group == null) return [];
 
         if (!this.hasOverlappingBoundingBoxWith(group)) return [];

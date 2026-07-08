@@ -730,9 +730,14 @@ export class JRC {
         "en": "If this graphic object collides with any sprite with given imageIndex then this method returns the first one. Use imageIndex == -1 to search for ANY colliding Sprite.",
     })
 
-    static shapeGetCollidingShapesComment = () => lm({
+    static shapeGetCollidingShapesGroupComment = () => lm({
         "de": `Gibt alle Elemente der Group zurück, die mit diesem graphischen Objekt kollidieren.`,
         "en": `Returns each element of given Group whicht collide with this object.`,
+    })
+
+    static shapeGetCollidingShapesArrayListComment = () => lm({
+        "de": `Gibt ein Array mit allen Grafikobjekten der Liste zurück, die mit diesem Grafikobjekt kollidieren.`,
+        "en": `Returns an array containing all graphic objects of given list that collide with this object.`,
     })
 
     static shapeBringToFrontComment = () => lm({
