@@ -716,7 +716,9 @@ export abstract class BinopCastCodeGenerator {
         }
 
         if(typeFrom.isPrimitive && typeTo instanceof GenericTypeParameter){
-            typeTo.catches.push(this.getBoxedType(typeFrom));
+            if(typeTo.catches){
+                typeTo.catches.push(this.getBoxedType(typeFrom));
+            }
             return true;
         }
 
