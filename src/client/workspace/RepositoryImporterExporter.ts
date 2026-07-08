@@ -1,18 +1,9 @@
 import { base64ToBytes, bytesToBase64 } from "../../tools/Base64";
-import { GetRepositoryRequest, GetRepositoryResponse, WorkspaceSettings } from "../communication/Data";
-import { Main } from "../main/Main";
-import { SpritesheetData } from "../spritemanager/SpritesheetData";
-import { GUIFile } from "./File";
-import { Workspace } from "./Workspace";
-import { Treeview } from "../../tools/components/treeview/Treeview";
-import { IMain } from "../../compiler/common/IMain";
-import { MainBase } from "../main/MainBase";
-import { TreeviewNode } from "../../tools/components/treeview/TreeviewNode";
-import { WorkspaceImportMessages } from "../main/gui/language/WorkspaceImportMessages";
-import { NetworkManager } from "../communication/NetworkManager";
-import { SpriteManager } from "../spritemanager/SpriteManager";
-import { ProgressIndicator } from "../main/gui/ProgressIndicator";
 import { ajaxAsync } from "../communication/AjaxHelper";
+import { GetRepositoryRequest, GetRepositoryResponse } from "../communication/Data";
+import { MainBase } from "../main/MainBase";
+import { SpriteManager } from "../spritemanager/SpriteManager";
+import { SpritesheetData } from "../spritemanager/SpritesheetData";
 
 export type ExportedRepository = {
     name: string,
