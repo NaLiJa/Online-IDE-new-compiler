@@ -584,6 +584,12 @@ export class JCM {
         "fr": `Impossible de trouver une méthode correspondant à cet identifiant et à cette signature.`,
     })
 
+    static cantCallAbstractMethodOfBaseClass = (identifier: string) => le({
+        "de": "Die abstrakte Methode " + identifier + " der Oberklasse kann nicht aufgerufen werden.",
+        "en": `Can't call abstract method ${identifier} of base class.`,
+        "fr": `Impossible d'appeler la méthode abstraite ${identifier} de la classe de base.`,
+    })
+
     static assertCodeReachedNeedsStringParameter = () => le({
         "de": "Die Methode assertCodeReached benötigt genau einen konstanten Parameter vom Typ String.",
         "en": `Method assertCodeReached needs parameter of type String.`,

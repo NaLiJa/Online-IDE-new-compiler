@@ -1351,6 +1351,10 @@ export abstract class TermCodeGenerator extends BinopCastCodeGenerator {
 
         this.registerUsagePosition(method, node.identifierRange);
 
+        if(method.isAbstract && objectSnippet.isSuperKeywordWithLevel > 0){
+            this.pushError(JCM.cantCallAbstractMethodOfBaseClass(method.identifier), "error", node);
+        }
+
         for (let i = 0; i < node.parameterValues.length; i++) {
             let pv = node.parameterValues[i];
             if (pv.kind == TokenType.lambdaOperator) {
