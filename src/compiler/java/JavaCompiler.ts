@@ -79,7 +79,11 @@ export class JavaCompiler implements Compiler {
     async compileIfDirty(onlyForCodeCompletion: boolean = false): Promise<Executable | undefined> {
         // if we're not in test mode:
         if (this.main) {
-            if (this.main.getInterpreter().isRunningOrPaused()) return;
+            if (this.main.getInterpreter().isRunningOrPaused() && 
+            this.main.getSettings().getValue("editor.stopRunningProgramOnWhenEditingSourcecode") != "no"){
+                return;
+            } 
+            
             const currentWorkspace = this.main?.getCurrentWorkspace();
             if (!currentWorkspace) return;
             this.moduleManager.workspace = currentWorkspace;

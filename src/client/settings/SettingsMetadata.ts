@@ -279,6 +279,22 @@ export var AllSettingsMetadata: GroupOfSettingMetadata[] = [
                         optionTexts: [SettingsMessages.offer, SettingsMessages.dontOffer]
                     },
                 ]
+            },
+            {
+                settingType: 'group',
+                name: SettingsMessages.EditorMiscellaneousName,
+                description: SettingsMessages.EditorMiscellaneousDescription,
+                settings: [
+                    {
+                        key: "editor.stopRunningProgramOnWhenEditingSourcecode",
+                        settingType: 'setting',
+                        name: SettingsMessages.EditorStopRunningProgramOnWhenEditingSourcecodeName,
+                        description: SettingsMessages.EditorStopRunningProgramOnWhenEditingSourcecodeDescription,
+                        type: 'enumeration',
+                        optionValues: ["yes", "no"],
+                        optionTexts: [SettingsMessages.yes, SettingsMessages.no]
+                    }
+                ]
             }
 
         ]

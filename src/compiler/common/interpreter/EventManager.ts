@@ -77,4 +77,10 @@ export class EventManager<EventType extends string> {
         callbacksToDelete.forEach(cb => this.off(cb.f));
     }
 
+    public removeAllListeners(){
+        this.eventTypeToCallbackMap.clear();
+        this.callbackToEventTypeMap.clear();
+        this.onceMap.clear();
+    }
+
 }

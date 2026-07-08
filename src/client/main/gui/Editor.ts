@@ -158,7 +158,9 @@ export class Editor {
         this.editor.onDidChangeModelContent((e: monaco.editor.IModelContentChangedEvent) => {
             const state = this.main.getInterpreter().scheduler.state;
             if (![SchedulerState.stopped, SchedulerState.error, SchedulerState.not_initialized].includes(state)) {
-                this.main.getActionManager().trigger("interpreter.stop");
+                if(this.main.getSettings().getValue("editor.stopRunningProgramOnWhenEditingSourcecode") == "yes"){
+                    this.main.getActionManager().trigger("interpreter.stop");
+                }
             }
             this.main.getCompiler().triggerCompile()
         })

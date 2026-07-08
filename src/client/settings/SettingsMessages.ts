@@ -185,6 +185,30 @@ export class SettingsMessages {
         'fr': 'Si le curseur se trouve sur un attribut d\'une classe, une ampoule apparaît à côté, offrant de créer automatiquement une méthode getter et setter pour cet attribut.'
     });
 
+    static EditorMiscellaneousName = () => lm({
+        'de': 'Sonstige Einstellungen',
+        'en': 'Miscellaneous Settings',
+        'fr': 'Paramètres divers'
+    });
+
+    static EditorMiscellaneousDescription = () => lm({
+        'de': 'Hier können Sie sonstige Einstellungen des Editors anpassen.',
+        'en': 'Here you can adjust miscellaneous settings of the editor.',
+        'fr': 'Ici, vous pouvez ajuster les paramètres divers de l\'éditeur.'
+    });
+
+    static EditorStopRunningProgramOnWhenEditingSourcecodeName = () => lm({
+        'de': 'Laufendes Programm beenden, wenn Quellcode bearbeitet wird',
+        'en': 'Stop running program when editing source code',
+        'fr': 'Arrêter l\'exécution du programme lors de la modification du code source'
+    });
+
+    static EditorStopRunningProgramOnWhenEditingSourcecodeDescription = () => lm({
+        'de': 'Hier können Sie einstellen, ob ein laufendes Programm automatisch beendet werden soll, wenn Sie den Quellcode bearbeiten.',
+        'en': 'Here you can set whether a running program should be automatically stopped when you edit the source code.',
+        'fr': 'Ici, vous pouvez définir si un programme en cours d\'exécution doit être automatiquement arrêté lorsque vous modifiez le code source.'
+    });
+
     static offer = () => lm({
         'de': 'Anbieten',
         'en': 'Offer',

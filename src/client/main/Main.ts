@@ -323,8 +323,11 @@ export class Main implements MainBase {
 
     onCompilationFinishedWithNewExecutable(executable: Executable | undefined): void {
 
-        // this is the only time-critical task:
-        this.interpreter.setExecutable(executable);
+        if(this.settings.getValue("editor.stopRunningProgramOnWhenEditingSourcecode") == "yes" ||
+            this.interpreter.isRunningOrPaused() == false){
+            // this is the only time-critical task:
+            this.interpreter.setExecutable(executable);
+        }
 
         // this can wait => give the main thread time to do its chores:
         setTimeout(() => {
@@ -447,6 +450,8 @@ export class Main implements MainBase {
     switchProgrammingLanguage(languageName: string) {
         let language = ProgrammingLanguageManager.getInstance().getLanguageByName(languageName);
         if (language == this.language) return;
+        this.language?.getCompiler(this)?.eventManager.off(this.onCompilationFinishedWithNewExecutable);
+        this.language?.getCompiler(this)?.eventManager.off(this.onCompilationFinished);
         this.language?.disable(this);
         this.language = language;
         this.language.enable(this);

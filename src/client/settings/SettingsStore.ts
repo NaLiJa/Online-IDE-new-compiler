@@ -21,8 +21,9 @@ export type SettingsType = {
     "editor.stickyScroll": "off" | "on",
     "editor.quickFix.getterAndSetter": "offer" | "dontOffer",
     "editor.quickFix.generateConstructor": "offer" | "dontOffer",
+    "editor.stopRunningProgramOnWhenEditingSourcecode": "yes" | "no",
 
-    "formatter.forceSpacesAfterIfForWhileDo": "0" | "1" | "no"
+    "formatter.forceSpacesAfterIfForWhileDo": "0" | "1" | "no",
 
     "classDiagram.typeConvention": "java" | "pascal",
     "classDiagram.background": "transparent" | "white",
@@ -57,6 +58,7 @@ export var SettingDefaultValues: SettingsType = {
     "editor.stickyScroll": "on",
     "editor.quickFix.getterAndSetter": "offer",
     "editor.quickFix.generateConstructor": "offer",
+    "editor.stopRunningProgramOnWhenEditingSourcecode": "yes",
 
     "formatter.forceSpacesAfterIfForWhileDo": "1",
     "classDiagram.typeConvention": "java",

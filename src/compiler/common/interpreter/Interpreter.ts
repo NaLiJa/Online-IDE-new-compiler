@@ -323,6 +323,10 @@ export class Interpreter {
 
     stop(restart: boolean) {
 
+        if(!restart && this.main.getSettings().getValue("editor.stopRunningProgramOnWhenEditingSourcecode") == "no"){
+            this.main.getCompiler().forceRecompilation();
+        }
+
         this.hideProgrampointerPosition();
         this.inputManager?.hide();
 
