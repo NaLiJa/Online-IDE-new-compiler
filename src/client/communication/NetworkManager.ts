@@ -387,7 +387,7 @@ export class NetworkManager {
         }
 
         if (sendBeacon) {
-            navigator.sendBeacon("updateGuiState", JSON.stringify(request));
+            navigator.sendBeacon("servlet/updateGuiState", JSON.stringify(request));
         } else {
             let response: UpdateGuiStateResponse = await ajaxAsync("servlet/updateGuiState", request);
             if (response.success) {
