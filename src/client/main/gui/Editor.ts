@@ -49,6 +49,8 @@ export class Editor {
     #lastLine: number = -1;
     initGUI($element: JQuery<HTMLElement>) {
 
+        this.manageKeyboardEvents($element);
+
         let settings = this.main.getSettings();
 
         this.editor = monaco.editor.create($element[0], {
@@ -158,7 +160,7 @@ export class Editor {
         this.editor.onDidChangeModelContent((e: monaco.editor.IModelContentChangedEvent) => {
             const state = this.main.getInterpreter().scheduler.state;
             if (![SchedulerState.stopped, SchedulerState.error, SchedulerState.not_initialized].includes(state)) {
-                if(this.main.getSettings().getValue("editor.stopRunningProgramOnWhenEditingSourcecode") == "yes"){
+                if (this.main.getSettings().getValue("editor.stopRunningProgramOnWhenEditingSourcecode") == "yes") {
                     this.main.getActionManager().trigger("interpreter.stop");
                 }
             }
@@ -225,7 +227,7 @@ export class Editor {
 
             that.onEvaluateSelectedText(event);
 
-            if(event.position.lineNumber == this.#lastLine){
+            if (event.position.lineNumber == this.#lastLine) {
                 that.onShowSignatureHelp(event);
             }
             this.#lastLine = event.position.lineNumber;
@@ -266,6 +268,25 @@ export class Editor {
         // console.log(this.editor.getSupportedActions().map(a => a.id));
 
         return this.editor;
+    }
+
+    manageKeyboardEvents(element: JQuery<HTMLElement>) {
+
+        if (!this.main.isEmbedded()) {
+
+
+            let f = (event: JQuery.KeyDownEvent | JQuery.KeyUpEvent | JQuery.KeyPressEvent) => {
+                if (this.main.getInterpreter()?.scheduler.state == SchedulerState.running && this.main.getSettings().getValue("editor.stopRunningProgramOnWhenEditingSourcecode") == "no") {
+                    event.stopPropagation();
+                }
+            }
+
+            element.on('keydown', f)
+                .on('keyup', f)
+                .on('keypress', f);
+
+        }
+
     }
 
 
