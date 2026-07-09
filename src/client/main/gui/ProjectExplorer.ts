@@ -895,6 +895,7 @@ export class ProjectExplorer {
     }
 
     lastOpenFile: GUIFile = null;
+    dontScrollIntoViewOnNextSetActive: boolean = false;
     setFileActive(file: GUIFile) {
 
         if (file?.isFolder) return;
@@ -911,6 +912,7 @@ export class ProjectExplorer {
             this.fileTreeview.setCaption(ProjectExplorerMessages.noFile());
         } else {
             editor.updateOptions({ readOnly: this.main.getCurrentWorkspace()?.readonly && !this.main.user.is_teacher });
+            this.dontScrollIntoViewOnNextSetActive = true;
             editor.setModel(file.getMonacoModel());
             if ([SchedulerState.running, SchedulerState.paused].indexOf(this.main.getInterpreter().scheduler.state) < 0) {
                 setTimeout(() => {
@@ -932,7 +934,11 @@ export class ProjectExplorer {
     }
 
     setActiveAfterExternalModelSet(f: GUIFile) {   // MP Aug. 24: Ändern zu file: File!
-        this.fileTreeview.selectElement(f, false);
+        if(this.dontScrollIntoViewOnNextSetActive){
+            this.dontScrollIntoViewOnNextSetActive = false;
+        } else {
+            this.fileTreeview.selectElement(f, false);
+        }
 
         this.lastOpenFile = f;
 

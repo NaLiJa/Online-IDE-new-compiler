@@ -43,14 +43,17 @@ export class JavaRepl extends Repl {
         super();
         this.replCompiler = new JavaReplCompiler();
         this.compiler.eventManager.on("compilationFinishedWithNewExecutable", (executable: JavaExecutable) => {
-            setTimeout(() => {
-                this.init(executable);
-            }, 100);
+            if (!this.main.getInterpreter().isRunningOrPaused()) {
+                setTimeout(() => {
+                    this.init(executable);
+                }, 100);
+            }
+
         })
 
         this.getInterpreter().eventManager.on("resetRuntime", () => {
             this.state = "none";
-            let executable = <JavaExecutable> this.getInterpreter().executable;
+            let executable = <JavaExecutable>this.getInterpreter().executable;
             if (executable && executable instanceof JavaExecutable) this.init(executable);
         })
     }
