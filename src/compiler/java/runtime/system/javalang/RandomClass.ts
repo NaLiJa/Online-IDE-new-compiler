@@ -11,7 +11,7 @@ export class RandomClass extends ObjectClass {
 
         {type: "method", signature: "public static int randint(int from, int to)", template: 'Math.floor(Math.random()*(§2-(§1)+1)+§1)' , comment: JRC.randomRandIntComment},
         {type: "method", signature: "public final int nextInt(int to)", template: 'Math.floor(Math.random()*§2)', comment: JRC.randomNextIntComment},
-        {type: "method", signature: "public static double randdouble(double from, double to)", template: 'Math.random()*(§2-(§1))+§1' , comment: JRC.randomRandDoubleComment},
+        {type: "method", signature: "public static double randdouble(double from, double to)", template: '(Math.random()*(§2-(§1))+§1)' , comment: JRC.randomRandDoubleComment},
     ]
 
     static type: NonPrimitiveType;
