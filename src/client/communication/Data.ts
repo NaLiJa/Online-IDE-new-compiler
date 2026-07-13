@@ -211,7 +211,8 @@ export type LoginResponse = {
     userSettings: SettingValues,   // new user settings
     classSettings: SettingValues, // settings for class if user is student
     schoolSettings: SettingValues, // settings for school
-    vidis_id_token?: string
+    vidis_id_token?: string,
+    penaltyTimeInSeconds: number,
 }
 
 export type CheckIfPruefungIsRunningResponse = {

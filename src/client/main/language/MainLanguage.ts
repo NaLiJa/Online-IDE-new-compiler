@@ -7,8 +7,13 @@ export class LoginMessages {
     });
     
     static wrongUsernameOrPassword = () => lm({
-        'de': 'Fehler: Benutzername und/oder Passwort ist falsch.',
-        'en': 'Error: Wrong username and/or password'
+        'de': 'Fehler: Benutzername und/oder Passwort ist falsch. Bitte versuchen Sie es in 5 s erneut.',
+        'en': 'Error: Wrong username and/or password. Please try again in 5 seconds.'
+    });
+
+    static penaltyTime = (penaltyTimeInSeconds: number) => lm({
+        'de': `Fehler: Sie haben einen/mehrere falsche Login-Versuche unternommen. Bitte warten Sie ${penaltyTimeInSeconds} Sekunden, bevor Sie es erneut versuchen.`,
+        'en': `Error: You have made one/several failed login attempts. Please wait ${penaltyTimeInSeconds} seconds before trying again.`
     });
     
     static pleaseWait = () => lm({

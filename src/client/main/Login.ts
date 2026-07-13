@@ -173,6 +173,13 @@ export class Login {
                 jQuery('#login-message').html(LoginMessages.wrongUsernameOrPassword());
                 jQuery('#login-spinner>img').hide();
             } else {
+
+                if(response.penaltyTimeInSeconds > 0){
+                    jQuery('#login-message').html(LoginMessages.penaltyTime(response.penaltyTimeInSeconds));
+                    jQuery('#login-spinner>img').hide();
+                    return;
+                }
+
                 this.vidis_id_token = response.vidis_id_token || "";
 
                 // We don't do this anymore for security reasons - see AjaxHelper.ts
