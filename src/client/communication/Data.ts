@@ -135,7 +135,8 @@ export type GetUserDataResponse = {
     success: boolean,
     user: UserData,
     classdata: ClassData[], // null if !is_teacher
-    schoolName: string
+    schoolName: string,
+    vidisSchoolId: string | null
 }
 
 export type GetSchoolDataRequest = {

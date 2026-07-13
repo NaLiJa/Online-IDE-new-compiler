@@ -6,6 +6,7 @@ import { SelectTeacherPopup } from "./SelectTeacherPopup.js";
 import { w2alert, w2grid, w2utils } from 'w2ui'
 import jQuery from 'jquery'
 import { Administration } from "./Administration.js";
+import { AdminMessages } from "./AdministrationMessages.js";
 
 
 export class TeachersWithClassesMI extends AdminMenuItem {
@@ -64,9 +65,9 @@ export class TeachersWithClassesMI extends AdminMenuItem {
             },
             toolbar: {
                 items: [
-                    { type: 'break' },
-                    { type: 'button', id: 'passwordButton', text: 'Passwort ändern...' } //, img: 'fa-key' }
-                ],
+                    { type: 'break', id: undefined, text: undefined },
+                ]
+                .concat(this.isVidisSchool() ? [] : [{ type: 'button', id: 'passwordButton', text: AdminMessages.changePassword() }]),
                 onClick: function (target, data) {
                     if (target == "passwordButton") {
                         that.changePassword();
@@ -74,9 +75,20 @@ export class TeachersWithClassesMI extends AdminMenuItem {
                 }
             },
             recid: "id",
-            columns: [
+            columns: this.isVidisSchool()? [
                 { field: 'id', text: 'ID', size: '20px', sortable: true, hidden: true },
-                { field: 'username', text: 'Benutzername', size: '20%', sortable: true, resizable: true, editable: { type: 'text' } },
+                { field: 'username', text: AdminMessages.nickname(), size: '20%', sortable: true, resizable: true, editable: { type: 'text' } },
+                { field: 'locked', text: 'Locked', size: '15%', sortable: true, resizable: false, editable: { type: 'checkbox', style: 'text-align: center' } },
+                { field: 'is_schooladmin', text: 'Admin', size: '15%', sortable: true, resizable: false, editable: { type: 'checkbox', style: 'text-align: center' } },
+                {
+                    field: 'numberOfClasses', text: 'Klassen', size: '10%', sortable: true, resizable: true,
+                    render: function (record: TeacherData) {
+                        return '<div>' + record.classes.length + '</div>';
+                    }
+                }
+            ] : [
+                { field: 'id', text: 'ID', size: '20px', sortable: true, hidden: true },
+                { field: 'username', text: "Username", size: '20%', sortable: true, resizable: true, editable: { type: 'text' } },
                 { field: 'rufname', text: 'Rufname', size: '20%', sortable: true, resizable: true, editable: { type: 'text' } },
                 { field: 'familienname', text: 'Familienname', size: '20%', sortable: true, resizable: true, editable: { type: 'text' } },
                 { field: 'locked', text: 'Locked', size: '15%', sortable: true, resizable: false, editable: { type: 'checkbox', style: 'text-align: center' } },

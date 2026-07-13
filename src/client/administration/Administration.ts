@@ -37,6 +37,8 @@ export class Administration {
 
     userData: UserData;
     classes: ClassData[];
+    schoolName: string;
+    vidisSchoolId: string | null;
 
     async start() {
 
@@ -50,6 +52,9 @@ export class Administration {
         ajax("getUserData", {}, (response: GetUserDataResponse) => {
             that.userData = response.user;
             that.classes = response.classdata;
+            that.schoolName = response.schoolName;
+            that.vidisSchoolId = response.vidisSchoolId;
+            
             this.initMenu();
             new AutoLogout();
             jQuery('#schoolName').text(response.schoolName);
