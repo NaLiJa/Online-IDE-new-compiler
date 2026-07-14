@@ -701,12 +701,14 @@ export class Parser extends StatementParser {
         }
     }
 
+    anonymousInnerClassCounter: number = 0;
     parseAnonymousInnerClassBody(newObjectNode: ASTNewObjectNode): ASTAnonymousClassNode | undefined {
 
         let parent: TypeScope = this.currentClassOrInterface || this.javaCompiledModule.ast!;
 
         let classNode = this.nodeFactory.buildClassNode(this.nodeFactory.buildNodeWithModifiers(this.cct.range), undefined, parent, [], this.javaCompiledModule);
         classNode.identifierRange = newObjectNode.range;
+        classNode.identifier = "$AnonymousInnerClass" + (this.anonymousInnerClassCounter++);
         classNode.range = newObjectNode.range;
         classNode.isAnonymousInnerType = true;
 

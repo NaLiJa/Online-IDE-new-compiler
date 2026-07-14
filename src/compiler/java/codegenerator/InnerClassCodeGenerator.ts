@@ -43,6 +43,7 @@ export class InnerClassCodeGenerator extends StatementCodeGenerator {
      *
      * @param node
      */
+    innerclassCounter: number = 0;
     compileAnonymousInnerClass(node: ASTAnonymousClassNode): CodeSnippet | undefined {
 
         // let outerClass = this.currentSymbolTable.classContext;
@@ -88,11 +89,12 @@ export class InnerClassCodeGenerator extends StatementCodeGenerator {
         // klass.checkIfInterfacesAreImplementedAndSupplementDefaultMethods({});
         // klass.takeSignaturesFromOverriddenMethods({});
         // klass.checkIfAbstractParentsAreImplemented();
-
-        let template = `new this.innerClass(${outerLocalVariables.map(v => Helpers.elementRelativeToStackbase(v!.stackframePosition!)).join(", ")})`;
+        
+        let counter = this.innerclassCounter++;
+        let template = `new this.$AnonymousInnerClass${counter}(${outerLocalVariables.map(v => Helpers.elementRelativeToStackbase(v!.stackframePosition!)).join(", ")})`;
         let newClassSnippet = new StringCodeSnippet(template, node.range, klass);
         newClassSnippet.addEmitToStepListener((step) => {
-            step.innerClass = klass.runtimeClass;
+            step[`$AnonymousInnerClass${counter}`] = klass.runtimeClass;
         });
 
         let snippet = this.compileNewObjectNode(node.newObjectNode, newClassSnippet);
@@ -100,8 +102,7 @@ export class InnerClassCodeGenerator extends StatementCodeGenerator {
         return snippet;
     }
 
-    counter: number = 0;
-
+    lambdaCounter: number = 0;
     compileLambdaFunction(node: ASTLambdaFunctionDeclarationNode, expectedType: JavaType | undefined): CodeSnippet | undefined {
         if (!node || !expectedType) return undefined;
 
@@ -221,7 +222,7 @@ export class InnerClassCodeGenerator extends StatementCodeGenerator {
 
         let instantiationAtRuntimeNeeded = outerClassFieldAccessHappened || outerLocalVariables.length > 0;
 
-        let counter = this.counter++;
+        let counter = this.lambdaCounter++;
 
         let template = instantiationAtRuntimeNeeded ? `new this.innerClass(${parameterString})` : `this.lambdaObject${counter}`;
         let newClassSnippet = new StringCodeSnippet(template, node.range, klass);

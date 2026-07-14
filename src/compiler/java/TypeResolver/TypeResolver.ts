@@ -532,7 +532,7 @@ export class TypeResolver {
                 resolvedType1.setExtends(extType);
             } else {
                 // anonymous inner class?
-                if (declNode.identifier == "" && extType instanceof IJavaInterface) {
+                if (declNode.identifier.startsWith("$AnonymousInnerClass") && extType instanceof IJavaInterface) {
                     declNode.implements.push(declNode.extends);
                     declNode.extends = undefined;
                 } else {
