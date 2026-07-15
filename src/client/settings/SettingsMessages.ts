@@ -657,9 +657,9 @@ export class SettingsMessages {
     });
 
     static AssemblyEnabledName = () => lm({
-        'de': `Assembler zur Sprachauswahl hinzufügen`,
-        'en': `Add assembly to language selection`,
-        'fr': `Ajouter l'assembleur à la sélection de langue`
+        'de': `Maschinensprache zur Sprachauswahl hinzufügen`,
+        'en': `Add machine language to language selection`,
+        'fr': `Ajouter le langage machine à la sélection de langue`
     });
 
     static AssemblyEnabledDescription = () => lm({
