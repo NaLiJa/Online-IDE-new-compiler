@@ -663,21 +663,21 @@ export class SettingsMessages {
     });
 
     static AssemblyEnabledDescription = () => lm({
-        'de': `Hier können Sie einstellen, ob die Sprache "Assembler" in der Sprachauswahl hinzugefügt werden soll.`,
-        'en': `Here you can set whether the language "Assembler" should be added to the language selection.`,
-        'fr': `Ici, vous pouvez définir si le langage "Assembler" doit être ajouté à la sélection de langue.`
+        'de': `Hier können Sie einstellen, ob die Sprache "Maschinensprache" in der Sprachauswahl hinzugefügt werden soll.`,
+        'en': `Here you can set whether the language "Machine Language" should be added to the language selection.`,
+        'fr': `Ici, vous pouvez définir si le langage "Langage Machine" doit être ajouté à la sélection de langue.`
     });
 
     static AssemblyName = () => lm({
-        'de': `Assembler`,
-        'en': `Assembler`,
-        'fr': `Assembleur`
+        'de': `Maschinensprache`,
+        'en': `Machine Language`,
+        'fr': `Langage Machine`
     });
 
     static AssemblyDescription = () => lm({
-        'de': `Einstellungen zur Programmiersprache Assembler.`,
-        'en': `Settings for assembly language.`,
-        'fr': `Paramètres pour le langage de programmation Assembleur.`
+        'de': `Einstellungen zur Programmiersprache Maschinensprache.`,
+        'en': `Settings for machine language.`,
+        'fr': `Paramètres pour le langage de programmation Langage Machine.`
     });
 
     static ProgrammingLanguagesSettingsName = () => lm({
