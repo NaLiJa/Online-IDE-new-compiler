@@ -328,6 +328,7 @@ export class StudentBulkImportMI extends AdminMenuItem {
                     user.is_admin = false;
                     user.is_schooladmin = false;
                     user.is_teacher = false;
+                    user.vidis_akronym = null;
                 }
 
                 this.showStep("Step 3 import");

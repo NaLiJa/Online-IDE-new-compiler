@@ -675,7 +675,8 @@ export class ClassesWithStudentsMI extends AdminMenuItem {
                 is_schooladmin: false,
                 is_teacher: false,
                 locked: false,
-                password: StudentBulkImportMI.getRandomPassword()
+                password: StudentBulkImportMI.getRandomPassword(),
+                vidis_akronym: null
             },
         };
 
