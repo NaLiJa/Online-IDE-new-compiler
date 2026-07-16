@@ -405,11 +405,11 @@ var instructions: Instruction[] = [
     },
     {
         tokenType: AssemblyTokenType.rsv, jumpType: "nojump", adressMode: "Immediate", OpCode: OpCode.rsv, description: ByAssemblyMessages.Rsv, parameterCount: 1,
-        exec: (cpu: ByCPU) => { return false; }
+        exec: (cpu: ByCPU) => { cpu.rsv(cpu.readDataOperand()); return false; }
     },
     {
         tokenType: AssemblyTokenType.rel, jumpType: "nojump", adressMode: "Immediate", OpCode: OpCode.rel, description: ByAssemblyMessages.Rel, parameterCount: 1,
-        exec: (cpu: ByCPU) => { return false; }
+        exec: (cpu: ByCPU) => { cpu.rel(cpu.readDataOperand()); return false; }
     },
     {
         tokenType: AssemblyTokenType.push, jumpType: "nojump", adressMode: "None", OpCode: OpCode.push, description: ByAssemblyMessages.Push, parameterCount: 0,
