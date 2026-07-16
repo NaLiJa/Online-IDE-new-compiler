@@ -20,7 +20,7 @@ export abstract class AdminMenuItem {
     abstract checkPermission(user: UserData): boolean;
 
     isVidisSchool(): boolean {
-        return this.administration.vidisSchoolId != null;
+        return this.administration.vidisSchoolId != null && this.administration.vidisSchoolId.length > 0;
     }
 
     // protected selectTextInCell(){
