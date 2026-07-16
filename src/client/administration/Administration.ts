@@ -66,7 +66,7 @@ export class Administration {
 
     initMenu() {
 
-        if (!this.userData.vidis_akronym) {
+        if (this.vidisSchoolId != null) {
             this.menuItems.push(new StudentBulkImportMI(this));
         }
 
