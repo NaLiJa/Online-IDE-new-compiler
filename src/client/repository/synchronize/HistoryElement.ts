@@ -119,6 +119,15 @@ export class HistoryElement {
             file.version = fileEntry.version;
             if (fileEntry.filename) file.filename = fileEntry.filename;
             if (fileEntry.path) file.path = fileEntry.path.slice();
+        } else {
+            let file: RepositoryFileEntry = {
+                id: fileEntry.id,
+                text: fileEntry.content,
+                filename: fileEntry.filename,
+                path: fileEntry.path ? fileEntry.path.slice() : [],
+                version: fileEntry.version
+            }
+            files.push(file);
         }
     }
 
