@@ -296,6 +296,7 @@ export abstract class CPU {
 
             if (interpreter.getMain()) {
                 this.printAssertionFailureInOutputTab(interpreter.getMain()!, valuesExpected, valuesActual, assertion.message ?? "");
+                interpreter.getMain()!.getRightDiv()?.outputTab?.show();
             }
 
         }

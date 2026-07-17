@@ -471,7 +471,7 @@ export class ByCPU extends CPU {
     flagNamesShort = ['Z', 'N', 'V', 'C'];
 
     registerNames = ['Accumulator', 'Program Counter', 'Stack Pointer'];
-    registerNamesShort = ['AC', 'PC', 'SP'];
+    registerNamesShort = ['A', 'PC', 'SP'];
 
     flags: {
         zero: boolean;
