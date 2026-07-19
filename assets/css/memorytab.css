@@ -150,7 +150,7 @@
     }
 
     .jo_memorytab_reveal-sp {
-        border: 2px solid var(--memorytab-revealstackpointer);
+        border: 2px solid var(--memorytab-revealstackpointer) !important;
     }
 
 }
